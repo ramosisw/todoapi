@@ -1,0 +1,53 @@
+version: '3.0'
+
+services:
+  #Runner APP
+  webapi:
+    container_name: ramosisw_todoapi_webapi
+    image: ramosisw/todoapi:${WEBAPP_VERSION}
+    build:
+      context: .
+      dockerfile: ./app.dockerfile
+      args:
+        WEBAPP_VERSION: ${WEBAPP_VERSION}
+        URL_HTTP_INT_PORT: ${URL_HTTP_INT_PORT}
+    ports:
+      - ${URL_HTTP_EXT_PORT}:${URL_HTTP_INT_PORT}
+    volumes:
+      - app:/app
+    depends_on:
+      - db
+      - builder
+  
+  #Builder for APP
+  builder:
+    container_name: ramosisw_todoapi_builder
+    image: ramosisw/todoapi_builder:${BUILDER_VERSION}.${BUILD_CONFIG}
+    build:
+      context: .
+      dockerfile: ./build.dockerfile
+      args:
+        BUILDER_VERSION: ${BUILDER_VERSION}
+        BUILD_CONFIG: ${BUILD_CONFIG}
+        BUILD_LOCATION: ${BUILD_LOCATION}
+    volumes:
+      - app:${BUILD_LOCATION}
+
+  #Database for APP
+  db:
+    image: mysql:5.7
+    container_name: ramosisw_todoapi_db
+    #hostname: todoapi-mysql
+    environment:
+      #MYSQL_RANDOM_ROOT_PASSWORD: ${MYSQL_RANDOM_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    volumes:
+      - ./mysql_init:/docker-entrypoint-initdb.d
+    ports:
+      - ${MYSQL_EXT_PORT}:${MYSQL_INT_PORT}
+    restart: always
+
+volumes:
+  app:
