@@ -1,21 +1,16 @@
 version: '3.0'
+
 services:
   #Runner APP
   webapi:
     container_name: ramosisw_todoapi_webapi
     image: ramosisw/todoapi:${WEBAPP_VERSION}
-    build:
-      context: .
-      dockerfile: ./webapp.dockerfile
-      args:
-        WEBAPP_VERSION: ${WEBAPP_VERSION}
-        URL_HTTP_INT_PORT: ${URL_HTTP_INT_PORT}
     ports:
       - ${URL_HTTP_EXT_PORT}:${URL_HTTP_INT_PORT}
     volumes:
       - app:/app
     depends_on:
-      - db
+      - db    
 
   #Database for APP
   db:

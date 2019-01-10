@@ -2,3 +2,7 @@
 **/bin/
 **/.git/
 **/node_modules/
+bin\
+obj\
+.git\
+node_modules\

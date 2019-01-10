@@ -3,8 +3,15 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TodoAPI.Migrations
 {
+    /// <summary>
+    /// Code First Migrations
+    /// </summary>
     public partial class InitialCreate : Migration
     {
+        /// <summary>
+        /// Up migration
+        /// </summary>
+        /// <param name="migrationBuilder"></param>
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -24,6 +31,10 @@ namespace TodoAPI.Migrations
                 });
         }
 
+        /// <summary>
+        /// Down Migration
+        /// </summary>
+        /// <param name="migrationBuilder"></param>
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

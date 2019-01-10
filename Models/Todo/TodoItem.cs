@@ -17,30 +17,33 @@ namespace TodoAPI.Models.Todo
         [StringLength(36)]
         public string Id { get; set; }
         
+        /// <summary>
+        /// Name of task
+        /// </summary>
+        /// <value></value>
         [Required]
         [StringLength(100)]
         public string Name { get; set; }
         
-        [StringLength(1000)]
-
         /// <summary>
         /// Description of item
         /// </summary>
         /// <value></value>
+        [StringLength(1000)]        
         public string Details { get; set; }
-        [Required]
         
         /// <summary>
         /// Date to be started task
         /// </summary>
         /// <value></value>
-        public DateTime StartDate { get; set; }
         [Required]
+        public DateTime StartDate { get; set; }
         
         /// <summary>
         /// Date to be expired task
         /// </summary>
         /// <value></value>
+        [Required]
         public DateTime EndDate { get; set; }
         
         /// <summary>

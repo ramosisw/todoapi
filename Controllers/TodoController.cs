@@ -26,16 +26,67 @@ namespace TodoAPI.Controllers
         public TodoController(TodoContext context)
         {
             _context = context;
+            //Insert only is any item added yet
             if (_context.TodoItems.Count() == 0)
             {
                 _context.TodoItems.Add(new TodoItem
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Name = "First task",
-                    Details = "Details text",
-                    IsDone = false,
-                    EndDate = DateTime.Now,
-                    StartDate = DateTime.Now
+                    Name = "Install docker",
+                    Details = "download a docker system for your system",
+                    IsDone = true,
+                    EndDate = new DateTime(2018, 12, 26, 21, 00, 00),
+                    StartDate = new DateTime(2018, 12, 28, 22, 00, 00)
+                });
+
+                _context.TodoItems.Add(new TodoItem
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "Install MySql 5.7",
+                    Details = "$ docker pull mysql:5.7",
+                    IsDone = true,
+                    EndDate = new DateTime(2018, 12, 26, 22, 00, 00),
+                    StartDate = new DateTime(2018, 12, 28, 22, 30, 00)
+                });
+
+                _context.TodoItems.Add(new TodoItem
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "Models & DbContext",
+                    Details = "Write code that transport the data arround client <-> server",
+                    IsDone = true,
+                    EndDate = new DateTime(2018, 12, 26, 22, 30, 00),
+                    StartDate = new DateTime(2018, 12, 28, 23, 00, 00)
+                });
+
+                _context.TodoItems.Add(new TodoItem
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "Controller",
+                    Details = "Write code that manipulate data of TodoItems",
+                    IsDone = true,
+                    EndDate = new DateTime(2018, 12, 27, 21, 00, 00),
+                    StartDate = new DateTime(2018, 12, 27, 22, 00, 00)
+                });
+
+                _context.TodoItems.Add(new TodoItem
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "Learn docker-compose",
+                    Details = "Learn how to work with docker-compose",
+                    IsDone = true,
+                    EndDate = new DateTime(2018, 12, 27, 22, 00, 00),
+                    StartDate = new DateTime(2018, 12, 28, 00, 00, 00)
+                });
+
+                _context.TodoItems.Add(new TodoItem
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "Learn First Migrations",
+                    Details = "Learn how to implement first migrations with docker-compose",
+                    IsDone = true,
+                    EndDate = new DateTime(2018, 12, 29, 15, 00, 00),
+                    StartDate = new DateTime(2018, 12, 29, 20, 00, 00)
                 });
                 _context.SaveChanges();
             }

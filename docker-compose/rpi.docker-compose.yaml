@@ -1,25 +1,22 @@
 version: '3.0'
+
 services:
   #Runner APP
   webapi:
     container_name: ramosisw_todoapi_webapi
-    image: ramosisw/todoapi:${WEBAPP_VERSION}
-    build:
-      context: .
-      dockerfile: ./webapp.dockerfile
-      args:
-        WEBAPP_VERSION: ${WEBAPP_VERSION}
-        URL_HTTP_INT_PORT: ${URL_HTTP_INT_PORT}
+    image: ramosisw/todoapi:rpi_${WEBAPP_VERSION}
+    args:
+      URL_HTTP_EXT_PORT: ${URL_HTTP_EXT_PORT}
+      URL_HTTP_INT_PORT: ${URL_HTTP_INT_PORT}
     ports:
-      - ${URL_HTTP_EXT_PORT}:${URL_HTTP_INT_PORT}
+      - ${URL_HTTP_EXT_PORT}:80
     volumes:
       - app:/app
     depends_on:
-      - db
-
+      - db    
   #Database for APP
   db:
-    image: mysql:5.7
+    image: hypriot/rpi-mysql:5.5
     container_name: ramosisw_todoapi_db
     #hostname: todoapi-mysql
     environment:
@@ -30,7 +27,7 @@ services:
     volumes:
       - ./mysql_init:/docker-entrypoint-initdb.d
     ports:
-      - ${MYSQL_EXT_PORT}:${MYSQL_INT_PORT}
+      - ${MYSQL_EXT_PORT}:3306
     restart: always
 
 volumes:

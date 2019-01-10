@@ -1,6 +1,5 @@
-FROM microsoft/dotnet:2.1.6-runtime-stretch-slim-arm32v7 as runtime
+FROM microsoft/dotnet:2.1-aspnetcore-runtime as runtime
 FROM microsoft/dotnet:2.1-sdk AS build
-#RUN dotnet publish -r linux-arm -c ${BUILD_CONFIG} -o ${BUILD_LOCATION}
 #Define default args
 ARG WEBAPP_VERSION=1.0.0
 ARG URL_HTTP_INT_PORT=80
@@ -21,7 +20,7 @@ RUN dotnet restore
 
 # Copy everything else and build
 COPY . ./
-RUN dotnet publish -r linux-arm -c Release -o publish
+RUN dotnet publish -c Release -o publish
 
 # Build runtime image
 FROM runtime

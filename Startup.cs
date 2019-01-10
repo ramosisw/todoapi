@@ -18,16 +18,30 @@ using System.IO;
 
 namespace TodoAPI
 {
+    /// <summary>
+    /// Startup class
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// Startup constructor
+        /// </summary>
+        /// <param name="configuration"></param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// Readonly configuration
+        /// </summary>
+        /// <value></value>
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to add services to the container.
+        /// </summary>
+        /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
@@ -53,10 +67,14 @@ namespace TodoAPI
             {
                 configuration.RootPath = "ClientApp/build";
             });
-            
+
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app">Builder</param>
+        /// <param name="env">Environment</param>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -68,6 +86,9 @@ namespace TodoAPI
                 app.UseHsts();
             }
 
+            app.UseCors(
+                options => options.WithOrigins("http://localhost:3000").AllowAnyMethod()
+            );
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
@@ -76,7 +97,12 @@ namespace TodoAPI
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
+                    template: "{controller}/{action=Index}/{id?}"
+                );
+                routes.MapSpaFallbackRoute(
+                    name: "spa-fallback",
+                    defaults: new { controller = "Home", action = "Index" }
+                );
             });
             //Configure Swagger
             app.UseSwagger();

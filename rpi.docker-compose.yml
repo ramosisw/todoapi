@@ -1,5 +1,4 @@
 version: '3.0'
-
 services:
   #Runner APP
   webapi:
@@ -20,7 +19,7 @@ services:
       
   #Database for APP
   db:
-    image: mysql:5.7
+    image: hypriot/rpi-mysql:5.5
     container_name: ramosisw_todoapi_db
     #hostname: todoapi-mysql
     environment:
