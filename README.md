@@ -23,3 +23,12 @@ $ git clone https://github.com/ramosisw/todoapi.git
 $ cd todoapi/hub.docker.com
 $ docker-compose up
 ```
+
+
+# Capturas
+
+## root http://localhost:5000/
+![TodoItems](https://raw.githubusercontent.com/ramosisw/todoapi/master/screeenshots/todoItems.PNG)
+
+## Todo DOC
+![TodoDOC](https://raw.githubusercontent.com/ramosisw/todoapi/master/screeenshots/swagger_doc.PNG)
